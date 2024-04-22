@@ -51,4 +51,4 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/Dockerfile'
     tags: 'latest'
-    buildContext: '$(Build.SourcesDirectory)/Pokedex.API/'
+    buildContext: '$(Build.SourcesDirectory)/Pokedex'
