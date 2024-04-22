@@ -44,9 +44,10 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/Pokedex/**/bin/Release/net5.0'
+    pathtoPublish: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/bin/Release/net5.0'
     artifactName: 'drop'
     publishLocation: 'Container'
+
 
 - task: Docker@2
   inputs:
