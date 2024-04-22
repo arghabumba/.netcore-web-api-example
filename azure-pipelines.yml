@@ -1,4 +1,3 @@
-
 trigger:
   branches:
     include:
@@ -18,9 +17,6 @@ variables:
   dockerfilePath: $(Build.SourcesDirectory)/Dockerfile
   prefix: '$(tagPrefix)'
   tag: '$(prefix)-$(Build.BuildId)'
-  
-
-
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -34,7 +30,7 @@ steps:
 
 - script: |
     cd Pokedex/Pokedex.API
-    dotnet build --configuration Release
+    dotnet build --configuration Release -o /app/build
   displayName: 'Build the .NET Core app'
 
 - script: |
@@ -44,16 +40,15 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/bin/Release/net5.0'
+    pathtoPublish: '/app/publish'
     artifactName: 'drop'
     publishLocation: 'Container'
-
 
 - task: Docker@2
   inputs:
     containerRegistry: 'ACRSC'
     repository: '$(dockerRegistryName)'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/Dockerfile'
     tags: 'latest'
-    buildContext: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API'
+    buildContext: '$(Build.SourcesDirectory)'
