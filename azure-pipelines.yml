@@ -1,11 +1,11 @@
 trigger:
   branches:
     include:
-    - main
+      - main
 pr:
   branches:
     exclude:
-    - '*'  
+      - '*'
 
 resources:
 - repo: self
@@ -30,7 +30,7 @@ steps:
 
 - script: |
     cd Pokedex/Pokedex.API
-    dotnet build --configuration Release -o /app/build
+    dotnet build --configuration Release 
   displayName: 'Build the .NET Core app'
 
 - script: |
@@ -40,7 +40,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '/app/publish'
+    pathtoPublish: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/bin/Release/net5.0'
     artifactName: 'drop'
     publishLocation: 'Container'
 
@@ -51,4 +51,4 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API/Dockerfile'
     tags: 'latest'
-    buildContext: '$(Build.SourcesDirectory)'
+    buildContext: '$(Build.SourcesDirectory)/Pokedex/Pokedex.API'
