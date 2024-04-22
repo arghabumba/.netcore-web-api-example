@@ -37,7 +37,9 @@ steps:
     dotnet build --configuration Release
   displayName: 'Build the .NET Core app'
 
-- script: dotnet test --configuration Release --no-build
+- script: |
+    cd Pokedex/Pokedex.API
+    dotnet test --configuration Release --no-build
   displayName: 'Run unit tests'
 
 - task: PublishBuildArtifacts@1
