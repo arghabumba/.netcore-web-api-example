@@ -32,7 +32,7 @@ steps:
     version: '3.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-- script: dotnet build --configuration Release --project Pokedex/Pokedex.API/Pokedex.API.csproj
+- script: dotnet build --configuration Release -p:Pokedex/Pokedex.API/Pokedex.API.csproj
   displayName: 'Build the .NET Core app'
 
 - script: dotnet test --configuration Release --no-build
